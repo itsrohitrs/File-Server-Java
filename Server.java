@@ -17,7 +17,7 @@ public class Server {
 
             ServerSocket server = new ServerSocket(port);
 
-            System.out.println("File Server Running...");
+            System.out.println("File Server Running... on Port : "+port);
 
             while(true){
 
