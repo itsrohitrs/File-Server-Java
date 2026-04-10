@@ -7,21 +7,17 @@ public class Server {
 
         try {
 
-            int port;
+            int port = Integer.parseInt(System.getenv("PORT"));
 
-            if(System.getenv("PORT") != null){
-                port = Integer.parseInt(System.getenv("PORT"));
-            } else {
-                port = 5000;
-            }
+            ServerSocket serverSocket = new ServerSocket(port);
 
-            ServerSocket server = new ServerSocket(port);
-
-            System.out.println("File Server Running... on Port : "+port);
+            System.out.println("Server started on port " + port);
 
             while(true){
 
-                Socket socket = server.accept();
+                Socket socket = serverSocket.accept();
+
+                System.out.println("Client connected");
 
                 BufferedReader in =
                         new BufferedReader(
@@ -50,14 +46,14 @@ public class Server {
                         out.println(line);
                     }
 
-                    out.println("EOF");
-
                     fileReader.close();
 
                 } else {
 
-                    out.println("FILE_NOT_FOUND");
+                    out.println("File not found");
                 }
+
+                out.println("EOF");
 
                 socket.close();
             }
